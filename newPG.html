@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Picture Gallery</title>
+
+    <script src="scipt.js" defer></script>
+
+    <style>
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+        }
+        html {
+            font-size: large;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            scroll-padding-top: 9rem;
+        }
+
+        body {
+            background-color: black;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 9%;
+        }
+
+        .logo {
+            font-size: 20px;
+            color: rgb(201, 201, 201);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bolder;
+            padding-top: 2%;
+        }
+
+        .logo i {
+            color: rgb(183, 140, 140);
+            padding-right: 0.5rem;
+        }
+
+        .navbar {
+            padding-top: 2%;
+        }
+        
+        .navbar a{
+            text-transform: uppercase;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 16px;
+            font-weight: bolder;
+            transition: all 0.2s linear;
+            color: rgb(201, 201, 201);
+            display: inline-block;
+            margin: 0 1rem;
+        }
+
+        .navbar a:hover {
+            color: rgb(183, 140, 140);
+        }
+
+        #menu-btn {
+            font-size: xx-large;
+            color:whitesmoke;
+            cursor: pointer;
+            display: none;
+        }
+
+        section {
+            padding: 3rem 9%;
+        }
+
+        .home {
+            margin-top: 9rem;
+            margin: 0 auto;
+            width: 90%;
+            border-radius: 1rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("https://i.pinimg.com/564x/3d/06/c8/3d06c899dd4715aa158ebcdc81641ef9.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home .content {
+            text-align: center;
+        }
+
+        .home .content span {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bolder;
+            color: transparent;
+            -webkit-text-stroke: 0.05rem white;
+            font-size: 2vw;
+            display: block;
+        }
+
+        .home .content h3 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 4vw;
+            text-transform: uppercase;
+            color: rgb(201, 201, 201);
+            letter-spacing: 10px;
+        }
+
+        .home .scroll-down {
+            position: absolute;
+            left: 50%;
+            bottom: 30px;
+            height: 30px;
+            width: 30px;
+            margin-left: -15px;
+            animation: scrollDown 2s ease infinite;
+        }
+
+        @keyframes scrollDown {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .home .scroll-down i {
+            font-size: xx-large;
+            color: rgb(179, 179, 179);
+            display: block;
+        }
+
+        section {
+            padding: 3rem 9%;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 2rem;
+            font-family: cursive;
+        }
+
+        .heading span {
+            color: rgb(22, 131, 170);
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+        }
+
+        .heading h1 {
+            font-size: 3rem;
+            color: whitesmoke;
+            margin-top: 0.5rem;
+            letter-spacing: 5px;
+        }
+
+        .heading i {
+            color: rgb(143, 163, 180);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 45px;
+            font-size: larger;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: rgba(52, 150, 150, 0.847);
+            border-radius: 30rem;
+            border-color: aliceblue;
+            cursor: pointer;
+            background: none;
+        }
+
+        .btn:hover {
+            background: rgb(13, 133, 177);
+            color: rgb(255, 255, 255);
+        }
+
+        .about {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+
+        .image-container {
+            flex: 1 1 42rem;
+        }
+
+        .image-container img {
+            padding-left: 5%;
+            width: 80%;
+        }
+
+        /*   .controls {
+            text-align: center;
+            padding-right: 70px;
+        }
+
+        .controls span {
+            display: inline-block;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+
+        .controls span:hover {
+                background: rgb(13, 133, 177);
+            }     */
+
+        .content {
+            flex: 1 1 42rem;
+            margin-bottom: 5rem;
+        }
+
+        .content span {
+            color: rgb(159, 191, 202);
+            font-size: 2.5rem;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .content h3 {
+            color: aliceblue;
+            font-size: 1.3rem;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .content p {
+           padding: 1rem 0;
+            color: aliceblue;
+            font-size: 1rem;
+            line-height: 2;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .gallery .content {
+            display: inline-block;
+            margin: 4rem 8rem;
+        }
+
+        .gallery .content a {
+            color: black;
+            font-family: cursive;
+            font-size: x-small;
+            letter-spacing: 0.1rem;
+        }
+
+        .gallery span {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: larger;
+            font-weight: bolder;
+        }
+
+        .gallery h3 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: medium;
+            font-weight: bold;
+            color: aliceblue;
+        }
+
+        .gallery p {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: medium;
+            color: aliceblue;
+        }
+
+        .gallery .box-container {
+            columns: 3 25rem;
+            column-gap: 1.5rem;
+            padding: 5rem;
+        }
+
+        .gallery .box {
+            margin-bottom: 1.5rem;
+            break-inside: avoid;
+        }
+
+        .gallery .box img {
+            width: 80%;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card {
+            text-align: center;
+            width: 200px;
+            height: 230px;
+            display: inline-flex;
+            border-radius: 10px;
+            padding: 10px 70px;
+            box-sizing: border-box;
+            cursor: pointer;
+            margin: 20px 15px;
+            background-position: center;
+            background-size: cover;
+            transition: 0.5s;
+        }
+        .card1 {
+            background-image: url('https://i.pinimg.com/736x/41/af/e9/41afe99dd22836f69de6123dcbc43a63.jpg');
+        }
+        .card2 {
+            background-image: url('https://i.pinimg.com/564x/de/1a/bf/de1abfbe18e7beb38ceff8033d22315f.jpg');
+        }
+        .card3 {
+            background-image: url('https://i.pinimg.com/564x/ac/cd/59/accd59c8bc5fba79f1ada6884e725070.jpg');
+        }
+        .card4 {
+            background-image: url('https://i.pinimg.com/564x/87/88/75/87887548c49ac5995e46d3cd966c1772.jpg');
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .footer {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background:rgb(52, 59, 66);
+        }
+
+        .footer .box-container {
+            padding: 0 5rem;
+            display: flex;
+            gap: 40%;
+            grid: (25rem)
+        }
+
+        .footer .box-container .box {
+            padding: 1rem 0;
+        }
+
+        .footer .box-container .box h3 {
+            font-size: 1.6rem;
+            color: aliceblue;
+            padding: 1rem 0;
+        }
+
+        .footer .box-container .box p {
+            font-size: 0.8rem;
+            color: aliceblue;
+            padding: 1rem 0;
+            line-height: 2;
+        }
+        .footer i {
+            color: rgb(201, 201, 201);
+        }
+
+        .share {
+            padding-top: 1rem;
+        }
+
+        .share a {
+            height: 4.5rem;
+            width: 4.5rem;
+            line-height: 4rem;
+            font-size: 2rem;
+            border-radius: 50%;
+            font-size: 2rem;
+            border: .2rem white;
+            color: aqua;
+            margin-right: 0.5rem;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .share a:hover {
+            opacity: 0.5;
+        }
+
+        .share i {
+            text-align: center;
+            justify-content: center;
+            font-size: x-large;
+            color: rgb(255, 255, 255);
+        }
+
+        .credit {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: aliceblue;
+            background: rgb(95, 95, 95);
+            text-align: center;
+            font-size: large;
+            padding: 3rem 2rem;
+            color: rgb(14, 13, 13);
+        }
+
+        .credit span {
+            color: rgb(30, 78, 96);
+        }
+
+        .fadeInLeft {
+            animation-name: left;
+        }
+
+
+
+
+
+
+
+
+
+        @media (max-width:991px) {
+
+            html {
+                font-size: 50%;
+            }
+
+            .header {
+                padding: 1.5rem 2rem;
+            }
+
+            section {
+                padding: 3rem 2rem;
+            }
+
+            .header .navbar a {
+                margin: 2rem;
+                font-size: 2rem;
+                display: block;
+            }
+        }
+
+        @media (max-width:780px) {
+            #menu-btn {
+                display: inline-block;
+            }
+            
+            .header .navbar {
+                    position: absolute;
+                    top: 99%; left: 0; right: 0;
+                    background: rgb(66, 63, 63);
+                    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                    
+                    
+                    &.active {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                    }
+                }
+
+            .home {
+                margin-top: 10rem;
+            }
+            
+            .home .content span {
+                font-size: 4vw;
+            }
+
+            .home .content span h3 {
+                    font-size: 2vw;
+                }
+            }
+            
+            @media (max-width: 450px) {
+                html {
+                    font-size: 50%;
+                }
+
+                .about .content h3 {
+                    font-size: 3.5rem;
+                }
+            }
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div id="menu-btn"><i class='bx bx-menu'></i></div>
+        <a href="#" class="logo"><i class='bx bxs-planet'></i>SAGE</a>
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#about">about</a>
+            <a href="#gallery">gallery</a>
+            <a href="#contact">contact</a>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="content">
+           <span>This is Sage's</span>
+           <h3>Picture Gallery</h3>
+            <a href="#about" class="scroll-down">
+                <i class='bx bxs-chevrons-down'></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="image-container">
+            <div class="fadeInLeft">
+                <img src="https://i.pinimg.com/564x/2e/8f/aa/2e8faa7aeda72b543ebcb5b878e0b7fe.jpg" class="images">
+            </div>
+        </div>
+
+        <div class="content" data-element_type="column" data-settings="{&quot;animation&quot;:&quot;fadeInLeft&quot;}">
+            <span>ABOUT US</span>
+        <h3><br><br>At "SAGE - the picture gallery"</h3>
+        <p>we are showcasing the breathtaking beauty and awe-inspiring wonders of nature through the lens of photography.
+            Our gallery is a haven for nature enthusiasts, capturing the essence of the natural world and allowing you to experience its magnificence wherever you may be.
+            Here you will find a diverse range of nature photography. Each image has been thoughtfully selected to evoke a sense of wonder, serenity, and connection to the natural world.
+            This website has been created flaunt and appreciate the photography skills of Ms. Sejal Sharma, Mr. Dhruv Punetha, and Mr. Aryan Rana. Through their lenses, they have immortalized fleeting moments, dramatic vistas, and intricate details, encapsulating the essence of our planet's extraordinary beauty.
+        </p>
+        <a href="#gallery" class="btn">EXPLORE</a>
+        </div>
+        
+    </section>
+
+
+    <section class="gallery" id="gallery">
+        <div class="heading">
+            <i class='bx bx-photo-album'></i><span>The Picture Gallery</span><i class='bx bx-photo-album'></i>
+            <h1><i>~wonders of the mother earth~</i></h1>
+        </div>
+
+        <div class="content">
+            <div class="card card1">
+                <a href="#sage"><h2>sage</h2></a>
+            </div>
+            <div class="card card2">
+                <a href="#dhruv"><h2>dhruv</h2></a>
+            </div>
+            <div class="card card3">
+                <a href="#aryan"><h2>aryan</h2></a>
+            </div>
+            <div class="card card4">
+                <a href="#surya"><h2>surya</h2></a>
+            </div>
+        </div>
+
+    </section>
+    
+    <section>
+        <div class="gallery" id="sage">
+            <div class="heading">
+                <span>SAGE</span>
+                <p>"Floral Kaleidoscope: A mesmerizing array of flowers, each with its unique shape and color, come together like a living work of art."</p>
+            </div>
+
+            <div class="box-container">
+                <div class="box">
+                        <img src="https://i.pinimg.com/564x/dd/f2/2d/ddf22d043364288773326629ce2ead7d.jpg" alt="Sunset">
+                        <h3>Orange Sky</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/ee/c1/63/eec16398ba0f92e834237060a00750e6.jpg" alt="Evening Sky">
+                        <h3>After Rain Sky</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/36/ec/aa/36ecaa02ba5ed2f072a646fd989c6943.jpg" alt="Sunset">
+                    <h3>Golden Hour</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/06/dd/d6/06ddd6b9357d3b57dfe5811ee1629519.jpg" alt="Clouds">
+                    <h3>Rain Clouds</h3>
+                </div>
+
+            </div>
+
+        <div class="gallery" id="dhruv">
+            <div class="heading">
+                <span>DHRUV</span>
+                <p>"Serenity in Scenery: Embracing Nature's Tranquility through Images."</p>
+            </div>
+
+            <div class="box-container">
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/60/f0/87/60f08728ea295329316abe3ce4d84d4a.jpg" alt="Scarlett Sage">
+                    <h3>Scarlett Sage</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/27/d2/ac/27d2ac02ed033a85f36032c69a505667.jpg" alt="Pretty Sky">
+                    <h3>Pretty Sky</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/b3/43/5f/b3435fb07fc6d93ba1b22e3e174c381e.jpg" alt="Hibiscus">
+                    <h3>Hibiscus</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/236x/d2/86/4b/d2864bccad79de25786f8f8961c209cb.jpg" alt="Fly High">
+                    <h3>Fly High</h3>
+                </div>
+
+            </div>
+
+        <div class="gallery" id="aryan">
+            <div class="heading">
+                <span>ARYAN</span>
+                <p>"Infinite Horizons: Connecting with Nature through Photography."</p>
+            </div>
+
+            <div class="box-container">
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/4b/2b/35/4b2b3549f15f0ee41a1c4c1b55ff98d1.jpg" alt="Red Flowers">
+                    <h3>Hamelia</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/ef/4a/b2/ef4ab2866469b95d28d5807a13636f12.jpg" alt="Sunset">
+                    <h3>Sunset</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/236x/36/c6/3b/36c63b71569e01db95d3991aceec3a0e.jpg" alt="Purple Sky" width="600" height="400">
+                    <h3>Purple Sky</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/d3/73/5e/d3735e3985e782e65e6e1d2426e57c32.jpg" alt="The Starry Night">
+                    <h3>Starry Night</h3>
+                </div>
+
+            </div>
+
+        <div class="gallery" id="surya">
+            <div class="heading">
+                <span>SURYA</span>
+                <p>"The clearest way into the Universe is through a forest wilderness."</p>
+            </div>
+
+            <div class="box-container">
+                <div class="box">
+                        <img src="https://i.pinimg.com/564x/c0/ff/4b/c0ff4baa2efe5b99c99abd700be74a69.jpg" alt="Leaves">
+                        <h3>Green Leaves</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/d9/a9/6b/d9a96b65d029f4d61728212b73ae6e02.jpg" alt="Mountains">
+                        <h3>Snow Mountains</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/8b/29/76/8b297638d33a9da3dea4cffd311cfe69.jpg" alt="Chhitkul">
+                    <h3>Chhitkul</h3>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.pinimg.com/564x/bd/bc/b2/bdbcb2eee01c44275f0823b1a1bf8072.jpg" alt="bougainvillea">
+                    <h3>Bougainvillea</h3>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+    </section>
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3><a href="#" class="logo"><i class='bx bxs-planet'></i>SAGE</a></h3>
+                <p>Thankyou for taking time to see our website.<br>Get in touch with us through the <br>given contacting ways and send reviews<br> or subscribe for latest updates through <br>the form provided alongside.</p>                
+                <div class="share">
+                    <a href="#" title="LinkedIn">
+                        <i class='bx bxl-linkedin-square'></i>
+                    </a>
+                    <a href="#" title="Instagram">
+                        <i class='bx bxl-instagram'></i>
+                    </a>
+                    <a href="#" title="Facebook">
+                        <i class='bx bxl-facebook-circle'></i>
+                    </a>
+                    <a href="#" title="Pinterest">
+                        <i class='bx bxl-pinterest'></i>
+                    </a> 
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>Contact Info</h3>
+                <p><i class='bx bxs-map'></i>Mohali, Punjab</p>
+                <p><i class='bx bxs-phone'></i>+91-9876543210</p>
+                <p><i class='bx bxs-envelope'></i>sage.vasis1704@gmail.com</p>
+                <p><i class='bx bxs-time-five'></i>10:00AM - 5:00PM</p>
+            </div>
+
+           
+        </div>
+    </section>
+
+    <div class="credit">created by <span>SAGE</span>। all rights reserved</div>
+</body>
+</html>
